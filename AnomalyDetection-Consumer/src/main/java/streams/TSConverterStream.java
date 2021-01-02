@@ -48,12 +48,21 @@ public class TSConverterStream {
                             public String apply(String jsonValue) {
                             	JsonObject jsonObject = jsonParser.parse(jsonValue).getAsJsonObject();
                             	String timestamp = jsonObject.get("eventStartEpoc").getAsString();
+                            	
                             //	Date event_start_date = new Date(Long.parseLong(timestamp) * 1000);		//Long.parseLong(timestamp)
-                            	LocalDateTime ldt = Instant.ofEpochMilli(Long.parseLong(timestamp)).atZone(ZoneId.systemDefault()).toLocalDateTime();
-                                DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
+                            /*	LocalDateTime ldt = Instant.ofEpochMilli(Long.parseLong(timestamp)).atZone(ZoneId.systemDefault()).toLocalDateTime();
+                                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");  
                                 TimeZone timeZone = TimeZone.getTimeZone("Europe/Budapest");
                                 dateFormat.setTimeZone(timeZone);
-                                String strDate = dateFormat.format(ldt); 
+                                String strDate = dateFormat.format(ldt); */
+                                
+                                //convert seconds to milliseconds
+                                Date date = new Date(Long.parseLong(timestamp)*1000L); 
+                                // format of the date
+                                SimpleDateFormat jdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                jdf.setTimeZone(TimeZone.getTimeZone("Europe/Budapest"));
+                                String strDate = jdf.format(date);
+                                
                             	jsonObject.addProperty("eventStartDate", strDate);
                                 String result = new Gson().toJson(jsonObject);
                                 return result;

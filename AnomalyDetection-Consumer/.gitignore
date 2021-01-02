@@ -3,3 +3,4 @@
 *.setting
 *.project
 target/
+/target/

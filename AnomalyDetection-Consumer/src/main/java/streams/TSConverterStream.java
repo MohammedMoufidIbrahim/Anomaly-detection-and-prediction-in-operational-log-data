@@ -44,6 +44,7 @@ public class TSConverterStream {
        
         KStream<String, String> convertedStream = inputTopic.mapValues(
                         new ValueMapper<String, String>() {
+                            int i = 0;
                             @Override
                             public String apply(String jsonValue) {
                             	JsonObject jsonObject = jsonParser.parse(jsonValue).getAsJsonObject();
@@ -64,6 +65,7 @@ public class TSConverterStream {
                                 String strDate = jdf.format(date);
                                 
                             	jsonObject.addProperty("eventStartDate", strDate);
+                            	jsonObject.addProperty("id", i++);
                                 String result = new Gson().toJson(jsonObject);
                                 return result;
                             }

@@ -63,9 +63,9 @@ public class Main {
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             } 
-          /*  finally {
+            finally {
             	kafkaOpLogProducer.close();
-            }*/
+            }
         });
     }
 }

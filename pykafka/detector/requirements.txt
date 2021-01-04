@@ -1,0 +1,5 @@
+kafka-python
+pandas
+pymongo
+sklearn
+keras
